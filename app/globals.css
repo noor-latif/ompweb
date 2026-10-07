@@ -4356,6 +4356,11 @@ html[data-touch-targets="accessible"] .right-panel-toolbar {
   gap: 12px;
   padding: 48px max(24px, 12vw);
 }
+.route-fallback-heading { margin: 0 0 8px; font-size: clamp(30px, 4.4vw, 40px); line-height: 1.08; letter-spacing: -0.025em; color: var(--text-muted); }
+.route-fallback-heading span { display: none; }
+html[lang="en"] .route-fallback-heading span[data-loc="en"],
+html[lang="zh-CN"] .route-fallback-heading span[data-loc="zh-CN"],
+html[lang="ja"] .route-fallback-heading span[data-loc="ja"] { display: block; }
 .route-fallback-line { width: 100%; max-width: 680px; height: 14px; }
 .route-fallback-line-short { width: 42%; }
 .route-fallback-composer {

@@ -81,7 +81,10 @@ import {
   type AppUpdatePhase,
   type AppUpdateStage,
 } from "./AppUpdateDialog";
-import { ArchiveBrowser } from "./ArchiveBrowser";
+const ArchiveBrowser = dynamic(() => import("./ArchiveBrowser").then((m) => m.ArchiveBrowser), {
+  ssr: false,
+  loading: () => null,
+});
 import { publishSessionsChanged } from "@/lib/session-change-bus";
 // The settings shell is part of the app bundle so opening it does not fetch or compile a modal chunk. The right panel (viewer included) is a separate chunk, preloaded on the first pointerdown or keydown and mounted on first open.
 // No loading placeholder: it would take the panel's place in the layout (on

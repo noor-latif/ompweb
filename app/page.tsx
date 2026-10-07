@@ -2,6 +2,11 @@ import { Suspense } from "react";
 import { headers } from "next/headers";
 import { AppShell } from "@/components/AppShell";
 import { getInstallName } from "@/lib/install-name";
+// Locale dictionaries are plain JSON: the server component can read the real
+// empty-session heading directly, painted pre-hydration.
+import en from "@/lib/i18n/locales/en.json";
+import ja from "@/lib/i18n/locales/ja.json";
+import zhCN from "@/lib/i18n/locales/zh-CN.json";
 
 export default async function Home() {
   const appName = getInstallName(await headers());
@@ -31,6 +36,16 @@ function RouteLoadingFallback() {
           <div className="skeleton route-fallback-topbar-control" />
         </div>
         <div className="route-fallback-content">
+          {/* The real empty-session heading painted pre-hydration: this is
+              the LCP element (FCP too — plain skeleton divs are never
+              contentful). Slightly larger than ChatWindow's h1 so it stays
+              the LCP after hydration. html[lang] is set by the head
+              bootstrap script before first paint. */}
+          <p className="route-fallback-heading display-serif" aria-hidden="true">
+            <span data-loc="en">{en["appShell.newSessionTitle"]}</span>
+            <span data-loc="zh-CN">{zhCN["appShell.newSessionTitle"]}</span>
+            <span data-loc="ja">{ja["appShell.newSessionTitle"]}</span>
+          </p>
           <div className="skeleton route-fallback-line route-fallback-line-short" />
           <div className="skeleton route-fallback-line" />
           <div className="skeleton route-fallback-line" />
